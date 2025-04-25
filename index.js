@@ -3,8 +3,16 @@
     const cards = document.querySelectorAll('.dessert-item'),
         shoppingCardContent = document.querySelector('.contents tbody'),
         emptyMessage = document.querySelector('.blank'),
+        dessertInfo = document.querySelector('.dessert-infos'),
         table = document.querySelector('.contents');
         let cart = {};
+
+
+        // One try
+
+
+
+
 
 
     cards.forEach((card) => {
@@ -27,30 +35,24 @@
 
             // Ajouter au panier
             
-                
-    
-                    if (e.target) {
-                        const cardInfo = e.target.parentElement.parentElement.parentElement;
-                        getCardInfo(cardInfo);
-                        
-                    }
+            getCardInfo(card);
                 
                     emptyMessage.style.display = 'none';
                     table.style.display = '';
                     table.style.width = '100%';
-                
-                
-            
+
         });
 
         // Augmenter la quantité
         increaseButton.addEventListener('click', () => {
+
             let quantity = parseInt(quantityDisplay.textContent);
             quantity++;
             quantityDisplay.textContent = quantity;
 
+            getCardInfo(card);
+            
         });
-
         
     });
     
@@ -83,10 +85,14 @@ function getCardInfo(card) {
         
     }
 
+    
+
     addDessertsInCard(info);
 }
 
 function addDessertsInCard(card) {
+    
+
     const row = document.createElement('div');
     row.classList = 'prod';
 
@@ -94,7 +100,7 @@ function addDessertsInCard(card) {
         
         <di class= 'title'>
             <div class='imge'>
-                <img src="${card.image}" width=100>
+                <img src="${card.image}" width=100">
             </div>
             
             <div class= 'infoss'>
@@ -123,8 +129,9 @@ function addDessertsInCard(card) {
         e.target.parentElement.parentElement.parentElement.remove();
             
     });
-
+    
 }
+
 
 
 
