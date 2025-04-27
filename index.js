@@ -50,6 +50,7 @@
             quantity++;
             quantityDisplay.textContent = quantity;
 
+            
             getCardInfo(card);
             
         });
@@ -132,6 +133,12 @@ function addDessertsInCard(card) {
     
 }
 
+
+function updateCard(card) {
+    const info = {
+        qtity: card.querySelector('.quantity').textContent
+    }
+}
 
 
 
