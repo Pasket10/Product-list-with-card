@@ -58,21 +58,21 @@
         });
         
            // Diminue la quantité
-        decreaseButton.addEventListener('click', () => {
+        // decreaseButton.addEventListener('click', () => {
             
-            if (quantity > 0) {
-                quantity--;
-                quantityDisplay.textContent = quantity;
-                let total = quantity * productPrice;
-            } else if (quantity === 0) {
-                delete cart[productId];
+        //     if (quantity > 0) {
+        //         quantity--;
+        //         quantityDisplay.textContent = quantity;
+        //         let total = quantity * productPrice;
+        //     } else if (quantity === 0) {
+        //         delete cart[productId];
                 
-            }else {
-                cart[productId].quantity = quantity;
-            }
+        //     }else {
+        //         cart[productId].quantity = quantity;
+        //     }
 
             
-        });
+        // });
 
     });
 
