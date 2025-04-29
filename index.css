@@ -140,12 +140,13 @@
     border-radius: 50%;
 }
 
+
 .prod {
-    /* display: flex; */
+    display: flex; 
     /* justify-content: space-between; */
-    /* width: 100%; */
+    width: 100%;
     /* padding: 10px; */
-    /* background-color: blue; */
+     /* background-color: blue; */
 }
 
 .title {
@@ -157,19 +158,13 @@
     border-bottom: 1px solid hsl(14, 25%, 72%);
 }
 
-
-.prod {
-    
-}
-
 .curency {
-    color: hsl(14, 25%, 72%);
+    color: hsl(14, 86%, 42%);
     font-size: 15px;
     
 }
 
-
-.active {
-    display: flex;
-    transform: scale(1);
+.curPrice {
+    color: hsl(14, 25%, 72%);
+    
 }

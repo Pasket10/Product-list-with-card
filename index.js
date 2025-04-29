@@ -8,13 +8,6 @@
         let cart = {};
 
 
-        // One try
-
-
-
-
-
-
     cards.forEach((card) => {
         const addToCartButton = card.querySelector('.card');
         const quantitySelector = card.querySelector('.quantity-selector');
@@ -23,6 +16,10 @@
         const quantityDisplay = card.querySelector('.quantity');
         const img = card.querySelector('.img');
         const productId = card.getAttribute('data-id');
+        const productName = card.querySelector(".name1").textContent;
+        const productPrice = card.querySelector(".price").textContent;
+        let quantity = parseInt(quantityDisplay.textContent);
+
 
 
         // Initialiser la quantité
@@ -30,84 +27,75 @@
             addToCartButton.style.display = "none";
             quantitySelector.style.transform = "scale(1)";
             quantitySelector.style.display = "flex";
-            quantityDisplay.textContent = 1;
+            quantityDisplay.textContent = 0;
             img.style.border = '2px solid hsl(14, 86%, 42%)';
 
-            // Ajouter au panier
-            
-            getCardInfo(card);
-                
-                    emptyMessage.style.display = 'none';
-                    table.style.display = '';
-                    table.style.width = '100%';
+            // Efacer le message 
+            emptyMessage.style.display = 'none';
+            table.style.display = '';
+            table.style.width = '100%';
 
         });
 
-        // Augmenter la quantité
+        // Ajoute au panier et Augmenter la quantité
         increaseButton.addEventListener('click', () => {
-
-            let quantity = parseInt(quantityDisplay.textContent);
+            
             quantity++;
             quantityDisplay.textContent = quantity;
 
-            
-            getCardInfo(card);
-            
+            let total = quantity * productPrice;
+
+            cart[productId] = {
+                image: img.src,
+                name: productName,
+                price: productPrice,
+                quantity: quantity,
+                total : total
+              };
+      
+            getCardInfo();
+ 
         });
         
+           // Diminue la quantité
+        decreaseButton.addEventListener('click', () => {
+            
+            if (quantity > 0) {
+                quantity--;
+                quantityDisplay.textContent = quantity;
+                let total = quantity * productPrice;
+            } else if (quantity === 0) {
+                delete cart[productId];
+                
+            }else {
+                cart[productId].quantity = quantity;
+            }
+
+            
+        });
+
     });
-    
 
-    
-
-    // Diminuer la quantité (minimum 1)
-    // decreaseButton.addEventListener("click", (e) => {
-    //     if (quantity >= 1) {
-    //         quantity--;
-    //         e.target.parentElement.parentElement.parentElement.remove();
-    //         quantityDisplay.textContent -= quantity;
-
-    //     }
-    // });
- 
-// }
+     
 
 
-function getCardInfo(card) {
+function getCardInfo() {
 
-    // const info;
-    const info = {
-        
-        image: card.querySelector('img').src,
-        title: card.querySelector('.name1').textContent,
-        price: card.querySelector('.price').textContent,
-        qtity: card.querySelector('.quantity').textContent,
-        id: card.getAttribute('data-id')
-        
-    }
-
-    
-
-    addDessertsInCard(info);
-}
-
-function addDessertsInCard(card) {
-    
-
-    const row = document.createElement('div');
-    row.classList = 'prod';
+    shoppingCardContent.innerHTML = ''; // Clear the shopping cart content
+    Object.entries(cart).forEach(([id, item]) => {
+        const row = document.createElement('div');
+    row.classList.add('prod');
 
     row.innerHTML = `
         
         <di class= 'title'>
             <div class='imge'>
-                <img src="${card.image}" width=100">
+                <img src="${item.image}" width=100">
             </div>
             
             <div class= 'infoss'>
-                <p class= 'prod'>${card.title}</p>
-                <p class = 'curency'>${card.qtity}x   @${card.price}</p>
-                
+                <p class= 'prod'>${item.name}</p>
+                <p class = 'curency'>${item.quantity}x   <span class='curPrice'>@${item.price}</span>  <span class='total'>${item.total}</span></p>
             </div>
             
             <div class= 'rBtn'>
@@ -116,29 +104,13 @@ function addDessertsInCard(card) {
         </di>
         
     `;
-    
     shoppingCardContent.appendChild(row);
-
-    // row.innerHTML += `
-    //     <div class='total'>
-    //         <p>Total: ${card.qtity * card.price}</p>
-    //     </div>`
-
-
-    const removeButton = row.querySelector('.remove');
-    removeButton.addEventListener('click', (e) => {
-        e.target.parentElement.parentElement.parentElement.remove();
-            
     });
+
+    // const removeButton = row.querySelector('.remove');
+    // removeButton.addEventListener('click', (e) => {
+    //     e.target.parentElement.parentElement.parentElement.remove();
+            
+    // });
     
 }
-
-
-function updateCard(card) {
-    const info = {
-        qtity: card.querySelector('.quantity').textContent
-    }
-}
-
-
-
