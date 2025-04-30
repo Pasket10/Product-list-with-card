@@ -30,49 +30,71 @@
             quantityDisplay.textContent = 0;
             img.style.border = '2px solid hsl(14, 86%, 42%)';
 
+            // productInfo();
+      
+            // getCardInfo();
             // Efacer le message 
-            emptyMessage.style.display = 'none';
-            table.style.display = '';
-            table.style.width = '100%';
+            
 
         });
 
         // Ajoute au panier et Augmenter la quantité
         increaseButton.addEventListener('click', () => {
-            
             quantity++;
             quantityDisplay.textContent = quantity;
 
-            let total = quantity * productPrice;
+            productInfo();
+      
+            getCardInfo();
+            
+            emptyMessage.style.display = 'none';
+            table.style.display = '';
+            table.style.width = '100%';
+        });
+        
+        decreaseButton.addEventListener('click', () => {
+            
+            if (quantity > 0) {
+                quantity--;
+                quantityDisplay.textContent = quantity;
+      
+                if (quantity === 0) {
+                  delete cart[productId];
+                    addToCartButton.style.display = "block";
+                    quantitySelector.style.display = "none";
+                    // addToCartButton.style.alignitem = "center";
+                    addToCartButton.style.transform = "scale(1)";
+                    img.style.border = 'none';
+                    
+                } else {
+                  cart[productId].quantity = quantity;
+                }
+      
+                getCardInfo();
+            }
+
+            if (cart.length === 0) {
+                emptyMessage.style.display = 'block';
+                table.style.display = 'none';
+                table.style.width = '0%';
+                  
+              }
+
+            
+        });
+
+        function productInfo() {
+            // let total = productPrice * quantity;
 
             cart[productId] = {
                 image: img.src,
                 name: productName,
                 price: productPrice,
                 quantity: quantity,
-                total : total
+                // total : total
               };
-      
-            getCardInfo();
- 
-        });
-        
-           // Diminue la quantité
-        // decreaseButton.addEventListener('click', () => {
-            
-        //     if (quantity > 0) {
-        //         quantity--;
-        //         quantityDisplay.textContent = quantity;
-        //         let total = quantity * productPrice;
-        //     } else if (quantity === 0) {
-        //         delete cart[productId];
-                
-        //     }else {
-        //         cart[productId].quantity = quantity;
-        //     }
 
-            
-        // });
+        }
 
     });
 
@@ -81,7 +103,7 @@
 
 function getCardInfo() {
 
-    shoppingCardContent.innerHTML = ''; // Clear the shopping cart content
+    shoppingCardContent.innerHTML = '';
     Object.entries(cart).forEach(([id, item]) => {
         const row = document.createElement('div');
     row.classList.add('prod');
@@ -95,7 +117,7 @@ function getCardInfo() {
             
             <div class= 'infoss'>
                 <p class= 'prod'>${item.name}</p>
-                <p class = 'curency'>${item.quantity}x   <span class='curPrice'>@${item.price}</span>  <span class='total'>${item.total}</span></p>
+                <p class = 'curency'>${item.quantity}x   <span class='curPrice'>@${item.price}</span>  <span class='total'>${item.price - item.quantity}</span></p>
             </div>
             
             <div class= 'rBtn'>
@@ -105,12 +127,18 @@ function getCardInfo() {
         
     `;
     shoppingCardContent.appendChild(row);
+
+    const removeButton = row.querySelector('.remove');
+    removeButton.addEventListener('click', (e) => {
+        e.target.parentElement.parentElement.parentElement.remove();
+        addToCartButton.style.display = "block";
+        quantitySelector.style.display = "none";
+        // addToCartButton.style.alignitem = "center";
+        addToCartButton.style.transform = "scale(1)";
+        img.style.border = 'none';
+    });
     });
 
-    // const removeButton = row.querySelector('.remove');
-    // removeButton.addEventListener('click', (e) => {
-    //     e.target.parentElement.parentElement.parentElement.remove();
-            
-    // });
+    
     
 }
