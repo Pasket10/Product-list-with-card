@@ -142,7 +142,7 @@
 
 
 .prod {
-    display: flex; 
+    /* display: flex;  */
     /* justify-content: space-between; */
     width: 100%;
     /* padding: 10px; */
@@ -167,4 +167,35 @@
 .curPrice {
     color: hsl(14, 25%, 72%);
     
+}
+
+.confirm_order {
+    display: none;
+    width: 100%;
+    padding: 15px;
+    background-color: hsl(14, 86%, 42%);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.total {
+    display: none;
+    justify-content: space-between;
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+.card_message {
+    display: none;
+    width: 90%;
+    padding: 10px;
+    background-color: hsl(13, 31%, 94%);
+    /* color: white; */
+    border-radius: 10px;
+    margin-top: 15px;
+    align-items: center;
+    justify-content: center;
 }
